@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+    <script>
+        let op = "";
+        let value1 = "";
+        let memory = "";
+
+        function setOp(operator) {
+            op = operator;
+            value1 = cal.acc.value;
+            cal.acc.value = "0";
+        }
+
+        function res() {
+            let value2 = parseFloat(cal.acc.value);
+            let result = 0;
+            switch(op) {
+                case "+": result = parseFloat(value1) + value2; break;
+                case "-": result = parseFloat(value1) - value2; break;
+                case "*": result = parseFloat(value1) * value2; break;
+                case "/": result = value2 !== 0 ? parseFloat(value1) / value2 : "Error"; break;
+                case "sqrt": result = Math.sqrt(parseFloat(value1)); break;
+            }
+            cal.acc.value = result;
+        }
+
+        function reciprocal() {
+            let current = parseFloat(cal.acc.value);
+            cal.acc.value = current !== 0 ? 1 / current : "Error";
+        }
+
+        function off() {
+            op = "";
+            value1 = "";
+            memory = "";
+            cal.acc.value = "";
+        }
+
+        function mc() {
+            memory = "";
+            alert("Memory Cleared");
+        }
+
+        function mr() {
+            if (memory !== "") {
+                cal.acc.value = memory;
+            } else {
+                alert("Memory is empty");
+            }
+        }
+
+        function mplus() {
+            memory = cal.acc.value;
+            alert("Saved to memory");
+        }
+
+        function addDecimal() {
+            if (!cal.acc.value.includes(".")) {
+                cal.acc.value += ".";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="calculator-container">
+        <form name="cal">
+            <h2>SIMPLE CALCULATOR</h2>
+            <table border="1">
+                <tr>
+                    <th colspan="4">
+                        <input type="text" name="acc" value="0" readonly />
+                    </th>
+                </tr>
+                <tr>
+                    <td><input type="button" value="ON" /></td>
+                    <td><input type="button" value="MC" onclick="mc()" /></td>
+                    <td><input type="button" value="MR" onclick="mr()" /></td>
+                    <td><input type="button" value="M+" onclick="mplus()" /></td>
+                </tr>
+                <tr>
+                    <td><input type="button" value="1" onclick="cal.acc.value += '1'" /></td>
+                    <td><input type="button" value="2" onclick="cal.acc.value += '2'" /></td>
+                    <td><input type="button" value="3" onclick="cal.acc.value += '3'" /></td>
+                    <td><input type="button" value="+" onclick="setOp('+')" /></td>
+                </tr>
+                <tr>
+                    <td><input type="button" value="4" onclick="cal.acc.value += '4'" /></td>
+                    <td><input type="button" value="5" onclick="cal.acc.value += '5'" /></td>
+                    <td><input type="button" value="6" onclick="cal.acc.value += '6'" /></td>
+                    <td><input type="button" value="-" onclick="setOp('-')" /></td>
+                </tr>
+                <tr>
+                    <td><input type="button" value="7" onclick="cal.acc.value += '7'" /></td>
+                    <td><input type="button" value="8" onclick="cal.acc.value += '8'" /></td>
+                    <td><input type="button" value="9" onclick="cal.acc.value += '9'" /></td>
+                    <td><input type="button" value="" onclick="setOp('')" /></td>
+                </tr>
+                <tr>
+                    <td><input type="button" value="0" onclick="cal.acc.value += '0'" /></td>
+                    <td><input type="button" value="." onclick="addDecimal()" /></td>
+                    <td><input type="button" value="=" onclick="res()" /></td>
+                    <td><input type="button" value="/" onclick="setOp('/')" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="button" value="√" onclick="setOp('sqrt'); res();" style="width: 100%" /></td>
+                    <td colspan="2"><input type="button" value="1/x" onclick="reciprocal()" style="width: 100%" /></td>
+                </tr>
+                <tr>
+                    <td colspan="4"><input type="button" value="OFF" onclick="off()" style="width: 100%" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>
